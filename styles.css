@@ -1,0 +1,118 @@
+.left {
+    display: inline-block;
+}
+
+#cue-display {
+    margin: 15px;
+    padding: 15px;
+    z-index: 2;
+    background: rgba(0,0,0,0.5);
+    color: white;
+    position: absolute;
+    display: none;
+}
+
+.right {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.controls {
+    text-align: right;
+}
+
+#input-text {
+    margin: 5px;
+    padding: 5px;
+    display: block;
+    font-size: 14px;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    height: 100px;
+    width: 250px;
+    resize: none;
+    background-color: #cfe6ef;
+}
+
+#input-time {
+    margin: 5px;
+    padding: 5px;
+    display: block;
+    font-size: 14px;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    height: 50px;
+    width: 250px;
+    resize: none;
+}
+
+#add-cue-button {
+    width: 100px;
+    margin-right: 5px;
+    background-color: #cfe6ef;
+    border: 2px solid #cfe6ef;
+    font-size: 14px;
+    transition-duration: 0.4s;
+}
+
+#add-cue-button:hover {
+    background-color: white;
+}
+
+#add-cue-button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+#add-cue-button span:after {
+    content: '\2039';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: -15px;
+    transition: 0.5s;
+}
+
+#add-cue-button:hover span {
+    padding-left: 20px;
+}
+
+#add-cue-button:hover span:after {
+    opacity: 1;
+    left: 0;
+}
+
+.cues-wrapper {
+    margin: 5px;
+}
+
+.cue-wrapper {
+    margin-bottom: 15px;
+    background-color: #cfe6ef;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    width: 260px;
+}
+
+.cue-wrapper .textBlock{
+    margin: 5px;
+}
+
+.cue-wrapper .timeBlock {
+    margin: 1px;
+    text-align: right;
+}
+
+.cue-wrapper .deleteButton {
+    float: right;
+    margin-top: -2px;
+    margin-right: 2px;
+    color: darkgrey;
+    cursor: pointer;
+}
+
+.cue-wrapper .deleteButton:hover {
+    color: black;
+}

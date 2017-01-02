@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app">
+        <div class="left">
+            <div id="cue-display"></div>
+            <iframe src="https://player.vimeo.com/video/195252344" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <p id="error-message"></p>
+        </div>
+        <div class="right">
+            <div class="controls">
+                <textarea id="input-text"></textarea>
+                <textarea id="input-time"></textarea>
+                <button id="add-cue-button" onclick="addCue()"><span>Add Cue</span></button>
+            </div>
+            <div class="cues-wrapper" id="wrapper">
+                <h4>Cues</h4>
+            </div>
+        </div>
+    </div>
+
+    <!--  vimeo player control -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    <script src="cue.js"></script>
+</body>
+</html>
