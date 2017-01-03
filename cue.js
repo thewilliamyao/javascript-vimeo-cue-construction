@@ -79,7 +79,7 @@ function launchApp() {
             currentTime = seconds;
         });
 
-        if (currentTime > currentCueTime + 3) {
+        if (currentTime > currentCueTime + 5) {
             document.getElementById("cue-display").style.display = "none";
         }
     });
