@@ -8,37 +8,29 @@ var cueTime;
 var cueId;
 var videoDuration;
 var cueNumber = 0;
-var vimeoURL = "https://player.vimeo.com/video/";
 
 function launchApp() {
-    console.log("here");
     var div = document.createElement("div");
     div.id = "main-video";
     document.getElementById("video-wrapper").appendChild(div);
 
     var videoCode = document.getElementById("code-input").value;
-    //document.getElementById("main-video").src = vimeoURL + videoCode;
-
     var options = {
         id: videoCode
     };
 
-    console.log("now here with stuff = " + videoCode);
     player = new Vimeo.Player('main-video', options);
 
     document.getElementById("menu").style.display = "none";
     document.getElementById("app").style.display = "block";
 
     player.getDuration().then(function(duration) {
-        console.log("checked duration");
         videoDuration = duration;
     }).catch(function(error) {
         // an error occurred
     });
 
-    console.log("here");
     player.on('play', function(data) {
-        console.log("played");
         player.getCuePoints().then(function(cuePoints) {
             if (cuePoints[0] && cuePoints[0].time == 0) {
                 document.getElementById("cue-display").innerHTML = cuePoints[0].data.customKey;
@@ -62,10 +54,6 @@ function launchApp() {
             document.getElementById("cue-p").style.display = "inline";
         }
         document.getElementById("cue-display").style.display = "block";
-    });
-
-    player.getCuePoints().then(function(cuePoints) {
-        console.log(cuePoints);
     });
 }
 
@@ -129,8 +117,6 @@ function createCue() {
     div.className = "cue-wrapper";
     div.id = cueNumber.toString();
 
-    console.log(isURL(cueText));
-
     if (isURL(cueText)) {
         var cueLink = document.createElement("a");
         cueLink.className = "textBlock";
@@ -163,7 +149,6 @@ function addRemoveButton() {
     remove.className = "deleteButton";
     remove.innerHTML = "x";
     remove.onclick = function(){
-        console.log(removeId);
         removeCue(removeId);
         document.getElementById(divId).remove();
 
