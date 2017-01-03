@@ -10,46 +10,10 @@ var cueId;
 var videoDuration;
 var cueNumber = 0;
 
-// player.addCuePoint(3, {
-//     customKey: 'Calvin is watching TV'
-// }).then(function(id) {
-//     console.log('cue point added');
-//     // cue point was added successfully
-// }).catch(function(error) {
-//     switch (error.name) {
-//         case 'UnsupportedError':
-//             // cue points are not supported with the current player or browser
-//             break;
-//
-//         case 'RangeError':
-//             // the time was less than 0 or greater than the video’s duration
-//             break;
-//
-//         default:
-//             // some other error occurred
-//             break;
-//     }
-// });
-
 player.getDuration().then(function(duration) {
     videoDuration = duration;
 }).catch(function(error) {
     // an error occurred
-});
-
-player.getCuePoints().then(function(cuePoints) {
-    console.log(cuePoints);
-    // cuePoints = an array of cue point objects
-}).catch(function(error) {
-    switch (error.name) {
-        case 'UnsupportedError':
-            // cue points are not supported with the current player or browser
-            break;
-
-        default:
-            // some other error occurred
-            break;
-    }
 });
 
 player.on('play', function(data) {
@@ -63,8 +27,18 @@ player.on('play', function(data) {
 });
 
 player.on('cuepoint', function(data) {
-    console.log(data.data.customKey);
-    document.getElementById("cue-display").innerHTML = data.data.customKey;
+    if (isURL(data.data.customKey)) {
+        document.getElementById("cue-p").style.display = "none";
+        
+        document.getElementById("cue-link").innerHTML = data.data.customKey;
+        document.getElementById("cue-link").href = data.data.customKey;
+        document.getElementById("cue-link").style.display = "inline";
+    } else {
+        document.getElementById("cue-link").style.display = "none";
+        
+        document.getElementById("cue-p").innerHTML = data.data.customKey;
+        document.getElementById("cue-p").style.display = "inline";
+    }
     document.getElementById("cue-display").style.display = "block";
 });
 
@@ -83,14 +57,8 @@ function addCue() {
         }).then(function(id) {
             console.log('cue point added');
             cueId = id;
-            console.log(cueId);
             addRemoveButton();
             // cue point was added successfully
-        });
-
-        player.getCuePoints().then(function (cuePoints) {
-            console.log(cuePoints);
-            // cuePoints = an array of cue point objects
         });
 
         document.getElementById("input-text").value = "";
@@ -114,49 +82,31 @@ function validCue(cueTimeInt) {
     return true;
 }
 
-// function addCueHelper(cueTimeInt) {
-//
-//     player.addCuePoint(cueTimeInt, {
-//         customKey: cueText
-//     }).then(function(id) {
-//         console.log('cue point added');
-//         cueId = id;
-//         // cue point was added successfully
-//     }).catch(function(error) {
-//         switch (error.name) {
-//             case 'UnsupportedError':
-//                 // cue points are not supported with the current player or browser
-//                 break;
-//
-//             case 'RangeError':
-//                 // the time was less than 0 or greater than the video’s duration
-//                 break;
-//
-//             default:
-//                 // some other error occurred
-//                 break;
-//         }
-//     });
-//
-// }
-
 function createCue() {
-    console.log(cueTime + " " + cueText);
-
     var div = document.createElement("div");
     div.className = "cue-wrapper";
     div.id = cueNumber.toString();
 
-    var cue = document.createElement("p");
-    cue.className = "textBlock";
-    cue.innerHTML = cueText;
+    console.log(isURL(cueText));
+
+    if (isURL(cueText)) {
+        var cueLink = document.createElement("a");
+        cueLink.className = "textBlock";
+        cueLink.innerHTML = cueText;
+        cueLink.href = cueText;
+        cueLink.target = "_blank";
+        div.appendChild(cueLink);
+    } else {
+        var cue = document.createElement("p");
+        cue.className = "textBlock";
+        cue.innerHTML = cueText;
+        div.appendChild(cue);
+    }
 
     var time = document.createElement("p");
     time.className = "timeBlock";
     time.innerHTML = cueTime;
 
-    //div.appendChild(remove);
-    div.appendChild(cue);
     div.appendChild(time);
 
     document.getElementById("wrapper").appendChild(div);
@@ -186,10 +136,13 @@ function removeCue(removedCue) {
         console.log('cue removed');
         // cue point was removed successfully
     });
+}
 
-    player.getCuePoints().then(function (cuePoints) {
-        console.log(cuePoints);
-        // cuePoints = an array of cue point objects
-    });
+function isURL(str) {
+    if (/^www./.test(str)) {
+        str = "http://" + str;
+        cueText = str;
+    }
 
+    return /^http./.test(str);
 }
