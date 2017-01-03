@@ -4,23 +4,33 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div id="menu">
+        <h2>Please Enter The Video Code</h2>
+        <input id="code-input" type="text" value="195252344">
+        <button id="submit-button" onclick="launchApp()">Submit</button>
+    </div>
     <div id="app">
         <div class="left">
             <div id="cue-display">
                 <a id="cue-link" href="" target="_blank"></a>
                 <p id="cue-p"></p>
             </div>
-            <iframe src="https://player.vimeo.com/video/195252344" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+            <div id="video-wrapper">
+            </div>
+            <!--<iframe id="main-video" src="https://player.vimeo.com/video/195252344" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
             <p id="error-message"></p>
         </div>
         <div class="right">
             <div class="controls">
                 <textarea id="input-text"></textarea>
                 <textarea id="input-time"></textarea>
-                <button id="add-cue-button" onclick="addCue()"><span>Add Cue</span></button>
+                <button class="add-cue-button" onclick="addCue()"><span>Add Cue</span></button>
             </div>
             <div class="cues-wrapper" id="wrapper">
                 <h4>Cues</h4>
+            </div>
+            <div class="settings">
+                <button id="restart-button" onclick="restartApp()">Another Video</button>
             </div>
         </div>
     </div>

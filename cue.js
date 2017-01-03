@@ -2,45 +2,87 @@
  * Created by wyao on 2016-12-24.
  */
 
-var iframe = document.querySelector('iframe');
-var player = new Vimeo.Player(iframe);
+var player;
 var cueText;
 var cueTime;
 var cueId;
 var videoDuration;
 var cueNumber = 0;
+var vimeoURL = "https://player.vimeo.com/video/";
 
-player.getDuration().then(function(duration) {
-    videoDuration = duration;
-}).catch(function(error) {
-    // an error occurred
-});
+function launchApp() {
+    console.log("here");
+    var div = document.createElement("div");
+    div.id = "main-video";
+    document.getElementById("video-wrapper").appendChild(div);
 
-player.on('play', function(data) {
-    player.getCuePoints().then(function(cuePoints) {
-        if (cuePoints[0].time == 0) {
-            document.getElementById("cue-display").innerHTML = cuePoints[0].data.customKey;
-        } else {
-            document.getElementById("cue-display").style.display = "none";
-        }
+    var videoCode = document.getElementById("code-input").value;
+    //document.getElementById("main-video").src = vimeoURL + videoCode;
+
+    var options = {
+        id: videoCode
+    };
+
+    console.log("now here with stuff = " + videoCode);
+    player = new Vimeo.Player('main-video', options);
+
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("app").style.display = "block";
+
+    player.getDuration().then(function(duration) {
+        console.log("checked duration");
+        videoDuration = duration;
+    }).catch(function(error) {
+        // an error occurred
     });
-});
 
-player.on('cuepoint', function(data) {
-    if (isURL(data.data.customKey)) {
-        document.getElementById("cue-p").style.display = "none";
-        
-        document.getElementById("cue-link").innerHTML = data.data.customKey;
-        document.getElementById("cue-link").href = data.data.customKey;
-        document.getElementById("cue-link").style.display = "inline";
-    } else {
-        document.getElementById("cue-link").style.display = "none";
-        
-        document.getElementById("cue-p").innerHTML = data.data.customKey;
-        document.getElementById("cue-p").style.display = "inline";
+    console.log("here");
+    player.on('play', function(data) {
+        console.log("played");
+        player.getCuePoints().then(function(cuePoints) {
+            if (cuePoints[0] && cuePoints[0].time == 0) {
+                document.getElementById("cue-display").innerHTML = cuePoints[0].data.customKey;
+            } else {
+                document.getElementById("cue-display").style.display = "none";
+            }
+        });
+    });
+
+    player.on('cuepoint', function(data) {
+        if (isURL(data.data.customKey)) {
+            document.getElementById("cue-p").style.display = "none";
+
+            document.getElementById("cue-link").innerHTML = data.data.customKey;
+            document.getElementById("cue-link").href = data.data.customKey;
+            document.getElementById("cue-link").style.display = "inline";
+        } else {
+            document.getElementById("cue-link").style.display = "none";
+
+            document.getElementById("cue-p").innerHTML = data.data.customKey;
+            document.getElementById("cue-p").style.display = "inline";
+        }
+        document.getElementById("cue-display").style.display = "block";
+    });
+
+    player.getCuePoints().then(function(cuePoints) {
+        console.log(cuePoints);
+    });
+}
+
+function restartApp() {
+    document.getElementById("menu").style.display = "block";
+    document.getElementById("app").style.display = "none";
+
+    //Destroy current cues
+    var toDelete = document.querySelectorAll(".cue-wrapper");
+    for (var i = 0; i < toDelete.length; i++) {
+        toDelete[i].parentNode.removeChild(toDelete[i]);
     }
-    document.getElementById("cue-display").style.display = "block";
-});
+
+    document.getElementById("main-video").remove();
+    document.getElementById("cue-display").style.display = "none";
+}
+
 
 function addCue() {
     cueText = document.getElementById("input-text").value;

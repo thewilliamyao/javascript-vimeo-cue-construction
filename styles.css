@@ -1,8 +1,14 @@
+#menu {
+    text-align: center;
+    margin-top: 200px;
+}
+
 #app {
-    /*display: none;*/
+    display: none;
 }
 
 .left {
+    padding-top: 5px;
     display: inline-block;
 }
 
@@ -14,6 +20,7 @@
     color: white;
     position: absolute;
     display: none;
+    max-width: 580px;
 }
 
 #cue-display #cue-p{
@@ -90,6 +97,42 @@
 #add-cue-button:hover span:after {
     opacity: 1;
     left: 0;
+}
+
+#submit-button {
+    width: 100px;
+    background-color: #cfe6ef;
+    border: 2px solid #cfe6ef;
+    font-size: 14px;
+    transition-duration: 0.4s;
+}
+
+#submit-button:hover {
+    background-color: white;
+}
+
+.settings {
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+#restart-button {
+    margin-left: 5px;
+    margin-top: 10px;
+    width: 160px;
+    background-color: white;
+    border: 2px solid #cfe6ef;
+    font-size: 14px;
+    transition-duration: 0.4s;
+}
+
+#restart-button:hover {
+    background-color: #cfe6ef;
+}
+
+#code-input {
+    height: 20px;
+    font-size: 14px;
 }
 
 .cues-wrapper {
