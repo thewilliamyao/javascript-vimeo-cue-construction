@@ -10,4 +10,4 @@ https://thewilliamyao.github.io/javascript-vimeo-cue-construction/
 3. Written with only vanilla javascript, no external libraries/framwork
 4. Cue is allowed to be in string or link
 5. Error checking for valid cue text and time
-
+6. Cue dissapears when 3 seconds pass and no new cues are added

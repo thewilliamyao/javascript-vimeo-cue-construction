@@ -9,6 +9,7 @@ var cueId;
 var videoDuration;
 var cueNumber = 0;
 var currentTime;
+var currentCueTime;
 
 function launchApp() {
     //Create a new video player div
@@ -40,7 +41,6 @@ function launchApp() {
         });
 
         player.getCuePoints().then(function(cuePoints) {
-            console.log("here");
             //Player wipes cue display when played unless the video is set at time = 0 and there is a cue
             if (cuePoints[0] && cuePoints[0].time == 0 && currentTime == 0) {
                 document.getElementById("cue-p").innerHTML = cuePoints[0].data.customKey;
@@ -66,8 +66,25 @@ function launchApp() {
             document.getElementById("cue-p").innerHTML = data.data.customKey;
             document.getElementById("cue-p").style.display = "inline";
         }
+
+        //Set the current cue time to now
+        currentCueTime = data.time;
+
         document.getElementById("cue-display").style.display = "block";
     });
+
+    //Check if current time is too far after current cue's time
+    player.on('timeupdate', function(data) {
+        player.getCurrentTime().then(function(seconds) {
+            currentTime = seconds;
+        });
+
+        if (currentTime > currentCueTime + 3) {
+            document.getElementById("cue-display").style.display = "none";
+        }
+    });
+
+
 }
 
 function restartApp() {
