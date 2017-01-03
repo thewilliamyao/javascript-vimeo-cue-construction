@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!--  vimeo player control -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+
     <link rel="stylesheet" href="styles.css">
+    <script src="cue.js"></script>
 </head>
 <body>
     <div id="menu">
@@ -17,14 +21,13 @@
             </div>
             <div id="video-wrapper">
             </div>
-            <!--<iframe id="main-video" src="https://player.vimeo.com/video/195252344" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
             <p id="error-message"></p>
         </div>
         <div class="right">
             <div class="controls">
                 <textarea id="input-text"></textarea>
                 <textarea id="input-time"></textarea>
-                <button class="add-cue-button" onclick="addCue()"><span>Add Cue</span></button>
+                <button id="add-cue-button" onclick="addCue()"><span>Add Cue</span></button>
             </div>
             <div class="cues-wrapper" id="wrapper">
                 <h4>Cues</h4>
@@ -34,9 +37,5 @@
             </div>
         </div>
     </div>
-
-    <!--  vimeo player control -->
-    <script src="https://player.vimeo.com/api/player.js"></script>
-    <script src="cue.js"></script>
 </body>
 </html>
